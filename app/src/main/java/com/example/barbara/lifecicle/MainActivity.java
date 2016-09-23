@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txt;
     int hora, min, seg;
+    String txtHora;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,15 +20,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         notificar("onCreate");
 
+        //Es null solo al iniciar la activity.
+        if(savedInstanceState == null){
+            Calendar data = Calendar.getInstance();
+            hora = data.get(Calendar.HOUR_OF_DAY);
+            min = data.get(Calendar.MINUTE);
+            seg = data.get(Calendar.SECOND);
+
+            txtHora = "Hora: " + hora + ":" + min + ":" + seg;
+        }else{
+            //Sino coge los datos guardados con el metodo override "onSaveInstanceState"
+            //el string "hora" tiene que ser el mismo que el string de outSate.putString("hora", this.txtHora)
+            //this.txtHora es la variable
+            this.txtHora = savedInstanceState.getString("hora");
+        }
+
         txt = (TextView)findViewById(R.id.txtHora);
+        txt.setText(this.txtHora);
 
-        Calendar data = Calendar.getInstance();
-        hora = data.get(Calendar.HOUR_OF_DAY);
-        min = data.get(Calendar.MINUTE);
-        seg = data.get(Calendar.SECOND);
+    }
 
-        txt.setText("Hora: " + hora + ":" + min + ":" + seg);
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("hora", this.txtHora);
     }
 
     @Override
