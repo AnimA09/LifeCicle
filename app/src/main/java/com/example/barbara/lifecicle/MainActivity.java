@@ -3,59 +3,71 @@ package com.example.barbara.lifecicle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
+
+    TextView txt;
+    int hora, min, seg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
-        Log.i("tag", "onCreate");
+        notificar("onCreate");
+
+        txt = (TextView)findViewById(R.id.txtHora);
+
+        Calendar data = Calendar.getInstance();
+        hora = data.get(Calendar.HOUR_OF_DAY);
+        min = data.get(Calendar.MINUTE);
+        seg = data.get(Calendar.SECOND);
+
+        txt.setText("Hora: " + hora + ":" + min + ":" + seg);
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
-        Log.i("tag", "onStop");
+        notificar("onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
-        Log.i("tag", "onDestroy");
+        notificar("onDestroy");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
-        Log.i("tag", "onStart");
+        notificar("onStart");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
-        Log.i("tag", "onPause");
+        notificar("onPause");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
-        Log.i("tag", "onResume");
+        notificar("onResume");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
-        Log.i("tag", "onRestart");
+        notificar("onRestart");
     }
 
-
+    public void notificar (String mensaje){
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        Log.i("tag", mensaje);
+    }
 }
